@@ -1,0 +1,96 @@
+import axios from 'axios'
+
+// Create an instance of Axios
+const apiInstance = axios.create({
+    baseURL: `${window.location.origin}/v1`,
+    withCredentials: true,
+
+    headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+    }
+})
+
+// const refreshToken = async (payload = {}) => {
+//     try {
+//         await axios.put(`${window.location.origin}/agency/refresh-token`, payload, {
+//             withCredentials: true
+//         })
+//     } catch (error) {
+//         throw error
+//     }
+// }
+
+// Axios Interceptor (Response)
+apiInstance.interceptors.response.use(
+    (response) => response,
+    async (error) => {
+        // const originalRequest = error.config
+
+        // if (error?.response?.status === 401 && !originalRequest._isRetry) {
+        //     try {
+        //         originalRequest._isRetry = true
+        //         const headers = { ...originalRequest.headers }
+
+        //         await refreshToken()
+        //         return apiInstance.request({ ...originalRequest, headers })
+        //     } catch (err) {
+        //         store.dispatch(userFailure())
+        //         store.dispatch(resetState())
+        //         return Promise.reject(err)
+        //     }
+        // } else if (error?.response?.status === 429) {
+        //     store.dispatch(userFailure())
+        //     store.dispatch(resetState())
+        // }
+
+        return Promise.reject(error)
+    }
+)
+
+// Exporting Api
+export default {
+    Auth: {
+        login: async (payload = {}) => {
+            const { data } = await apiInstance.post('/dashboard/login', payload)
+            return data
+        },
+        logout: async () => {
+            const { data } = await apiInstance.put('/dashboard/logout')
+            return data
+        }
+    },
+
+    User: {
+        getProfile: async () => {
+            const { data } = await apiInstance.get('/dashboard/self')
+            return data
+        }
+    },
+    Home: {
+        getHighLevelInsights: async (signal: AbortSignal, clientId: string) => {
+            const queryParams = {
+                clientId
+            }
+            const { data } = await apiInstance.get(`/agency/high-level-insights`, {
+                params: queryParams,
+                signal
+            })
+            return data
+        }
+    },
+    Pledge: {
+        fetchPledge: async (signal: AbortSignal, entity: string, page: number, limit: number) => {
+            const queryParams = {
+                entity,
+                page,
+                limit
+            }
+            const { data } = await apiInstance.get(`/dashboard/pledge`, {
+                params: queryParams,
+                signal
+            })
+            return data
+        }
+    }
+}
