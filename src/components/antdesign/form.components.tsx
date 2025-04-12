@@ -7,6 +7,11 @@ import PhoneInput, { CountryData } from 'react-phone-input-2'
 // import DownArrow from '../../assets/images/keyboard_arrow_down.svg'
 import { TextItemProps, TextAreaItemProps, PhoneProps, PasswordInputProps } from '../../types/form.components.types'
 import { Button, Form, Input, Checkbox, CheckboxProps, Select, DatePicker, DatePickerProps, ConfigProvider } from 'antd'
+import Dragger from 'antd/es/upload/Dragger'
+import { InboxOutlined, LoadingOutlined } from '@ant-design/icons'
+import { message } from 'antd'
+
+type HandleFileUpload = (file: File) => boolean
 
 export const PasswordInput = ({ name, min, max, required = true, placeholder, icon, onChange, regex, newPwd = null }: PasswordInputProps) => {
     const rules: Rule[] = [{ required, message: `Please enter password` }]
@@ -167,7 +172,7 @@ export const TextAreaItem = ({ name, required = true, min, max, row = 7, onChang
                 className={
                     className
                         ? className
-                        : 'h-8 2xl:h-12 font-medium text-base resize-none hover:border-secondary rounded-md transition ease-in duration-500'
+                        : 'h-8 2xl:h-12 font-medium text-base resize-none  rounded-md transition focus-visible:shadow-none focus:border-[#868E96] hover:border-[#868E96] ease-in duration-500'
                 }
                 onChange={onChange}
             />
@@ -338,5 +343,40 @@ export const DatePickerItem = ({
                 />
             </ConfigProvider>
         </Form.Item>
+    )
+}
+export const UploadFile = ({
+    handleFileUpload,
+    accept,
+    isUploading
+}: {
+    handleFileUpload: HandleFileUpload
+    accept: string
+    isUploading: boolean
+}) => {
+    return (
+        <>
+            <Dragger
+                name="file"
+                height={180}
+                accept={accept}
+                beforeUpload={handleFileUpload}
+                multiple={false}
+                onDrop={(e) => message.info(`Dropped ${e.dataTransfer.files.length} files`)}
+                className={isUploading ? 'dragger-animation' : ''}>
+                <p className="ant-upload-drag-icon">
+                    {isUploading ? (
+                        <LoadingOutlined
+                            className="upload-animation"
+                            style={{ fontSize: '40px', color: '#E27670' }}
+                        />
+                    ) : (
+                        <InboxOutlined style={{ fontSize: '40px', color: '#E27670' }} />
+                    )}
+                </p>
+                <p className="text-lg text-secondary font-dmSans">Click or drag file to this area to upload</p>
+                <p className="text-sm text-customGray font-dmSans">Supported Formats : {accept.toUpperCase()} Only</p>
+            </Dragger>
+        </>
     )
 }

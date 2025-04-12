@@ -8,11 +8,6 @@ import DashboardLayout from './layouts/dashboard.layout'
 import Reporters from './pages/dashboard/reporters'
 
 const generateRoutes = (): RouteObject[] => {
-    // const allowedRoles = {
-    //     home: [ERoleType.GUINNESS],
-    //     pledge: [ERoleType.GUINNESS]
-    // }
-
     return [
         {
             path: '/app',
@@ -33,7 +28,7 @@ const generateRoutes = (): RouteObject[] => {
                 {
                     path: 'reporters',
                     element: (
-                        // <ProtectedRoute allowedRoles={allowedRoles.pledge}>
+                        // <ProtectedRoute allowedRoles={allowedRoles.reporters}>
                         <Reporters />
                         // </ProtectedRoute>
                     )

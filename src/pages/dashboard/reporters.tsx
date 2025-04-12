@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import ReporterTable from '../../components/antdesign/reporterTable'
 import { IReporters } from '../../types/state.types'
-// import { fetchPledge } from '../../redux/pledge/pledge.thunk'
+
 import { useSelector } from 'react-redux'
 import { ERoleType, RootState } from '../../types/selector.types'
 

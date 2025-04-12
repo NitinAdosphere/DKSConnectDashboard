@@ -1,16 +1,49 @@
 import { Drawer } from 'antd'
-import { Dispatch } from 'react'
+import { Dispatch, useRef } from 'react'
 import Calender from '../../../assets/calendar.svg'
-
+import sample1 from '../../../assets/sample1.png'
+type MediaItem = {
+    type: 'image' | 'video'
+    src: string
+}
 export const ViewUpdateDrawer = ({
     isViewUpdateDrawerOpen,
     setIsViewUpdateDrawerOpen,
     content
 }: {
-    isCreateUpdateDrawerOpen: boolean
-    setIsCreateUpdateDrawerOpen: Dispatch<boolean>
+    isViewUpdateDrawerOpen: boolean
+    setIsViewUpdateDrawerOpen: Dispatch<boolean>
     content: string
 }) => {
+    const scrollRef = useRef<HTMLDivElement>(null)
+    let isDown = false
+    let startX = 0
+    let scrollLeft = 0
+
+    const onMouseDown = (e: React.MouseEvent) => {
+        isDown = true
+        scrollRef.current?.classList.add('cursor-grabbing')
+        startX = e.pageX - (scrollRef.current?.offsetLeft || 0)
+        scrollLeft = scrollRef.current?.scrollLeft || 0
+    }
+
+    const onMouseLeave = () => {
+        isDown = false
+        scrollRef.current?.classList.remove('cursor-grabbing')
+    }
+
+    const onMouseUp = () => {
+        isDown = false
+        scrollRef.current?.classList.remove('cursor-grabbing')
+    }
+
+    const onMouseMove = (e: React.MouseEvent) => {
+        if (!isDown || !scrollRef.current) return
+        e.preventDefault()
+        const x = e.pageX - scrollRef.current.offsetLeft
+        const walk = (x - startX) * 1.5 // scroll speed multiplier
+        scrollRef.current.scrollLeft = scrollLeft - walk
+    }
     const mediaData = [
         { srNo: '01', name: 'Run tv', link: '#', views: '25K' },
         { srNo: '02', name: 'Bellary Belagayithu', link: '#', views: '25K' },
@@ -18,6 +51,13 @@ export const ViewUpdateDrawer = ({
         { srNo: '04', name: 'BVNEWS5', link: '#', views: '25K' },
         { srNo: '05', name: 'Ejagatthu', link: '#', views: '25K' },
         { srNo: '06', name: 'News81', link: '#', views: '25K' }
+    ]
+
+    const mediaList: MediaItem[] = [
+        { type: 'image', src: sample1 },
+        { type: 'image', src: sample1 },
+        { type: 'image', src: sample1 },
+        { type: 'image', src: sample1 }
     ]
     return (
         <Drawer
@@ -60,6 +100,48 @@ export const ViewUpdateDrawer = ({
                     ಸ್ಥಳೀಯ ಮುಖಂಡರ ಅಹವಾಲನ್ನು ಡಿಸಿಎಂ ಆಲಿಸಿದರು.
                 </p>
             </div>
+            {/* Gallery */}
+            <div className="mb-4">
+                <h2 className="font-inter font-semibold text-base text-secondary border-b border-[#CCCCCC] pb-2 mb-2">Gallery</h2>
+                <div className="relative">
+                    <div
+                        ref={scrollRef}
+                        onMouseDown={onMouseDown}
+                        onMouseLeave={onMouseLeave}
+                        onMouseUp={onMouseUp}
+                        onMouseMove={onMouseMove}
+                        className="flex gap-2 flex-nowrap overflow-x-scroll no-scrollbar scrollbar-hide cursor-grab"
+                        style={{ paddingBottom: '4px' }}>
+                        {mediaList.map((item, index) => (
+                            <div>
+                                <div
+                                    key={index}
+                                    className="w-[150px] bg-[#E7F1F9] p-2 flex-shrink-0 rounded-tl-lg rounded-tr-lg overflow-hidden border">
+                                    {item.type === 'video' ? (
+                                        <video
+                                            src={item.src}
+                                            controls
+                                            className="w-full h-28 object-cover rounded-[4px] border border-[#CCCCCC]"
+                                        />
+                                    ) : (
+                                        <img
+                                            src={item.src}
+                                            alt={`media-${index}`}
+                                            className="w-full h-28 object-cover rounded-[4px] border border-[#CCCCCC]"
+                                        />
+                                    )}
+                                </div>
+                                <button className="w-full font-inter font-semibold text-sm rounded-bl-lg rounded-br-lg bg-primary text-white py-2">
+                                    Download
+                                </button>
+                            </div>
+                        ))}
+
+                        {/* ghost space at end for partial preview */}
+                        <div className="w-20 flex-shrink-0"></div>
+                    </div>
+                </div>
+            </div>
 
             {/* Media List */}
             <div className="mx-auto rounded-tl-md rounded-tr-md overflow-hidden">
@@ -81,8 +163,8 @@ export const ViewUpdateDrawer = ({
                                 <td className="py-3 px-4 text-[#1C1C1C] text-[15px] font-semibold">{media.name}</td>
                                 <td className="py-3 px-4 text-primary text-[15px] underline cursor-pointer">
                                     <a
-                                        href={media.link}
-                                        target="_blank"
+                                        href={'#'}
+                                        target=""
                                         rel="noopener noreferrer">
                                         View Link
                                     </a>

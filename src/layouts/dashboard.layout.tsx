@@ -6,16 +6,19 @@ import { Navigate, useNavigate } from 'react-router-dom'
 import { Outlet, useLocation } from 'react-router-dom'
 import { ERoleType, RootState } from '../types/selector.types'
 import { LogoutOutlined, MenuOutlined } from '@ant-design/icons'
-import { Layout, Menu, Button, ConfigProvider, Drawer } from 'antd'
+import { Layout, Menu, Button, ConfigProvider, Drawer, Form, Select } from 'antd'
 
 //images
 import Logo from '../assets/congress-logo.svg'
 import Doc from '../assets/document-text.svg'
 import DocActive from '../assets/active-document-text.svg'
 import Reporter from '../assets/reporter-icon.svg'
+import DownArrow from '../assets/keyboard_arrow_down.svg'
 import ReportersActive from '../assets/active-reporter-icon.svg'
 import { ButtonThemeConfig } from '../components/antdesign/configs.components'
 import { EConfigButtonType } from '../types/state.types'
+import { useDispatch } from 'react-redux'
+import { setSelectedUpdate } from '../redux/allUpdate/update.slice'
 
 type MenuItem = Required<MenuProps>['items'][number]
 const { Header, Sider, Content } = Layout
@@ -23,12 +26,23 @@ const { Header, Sider, Content } = Layout
 const DashboardLayout = () => {
     const location = useLocation()
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const { user } = useSelector((state: RootState) => state.User)
+    const selectedUpdate = useSelector((state: any) => state.Updates)
+    console.log('selectedUpdate', selectedUpdate)
     const [collapsed, setCollapsed] = useState(false)
     const [drawerVisible, setDrawerVisible] = useState<boolean>(false)
     const [isMobileScreen, setIsMobileScreen] = useState<boolean>(window.innerWidth < 1024)
     const [current, setCurrent] = useState<string>(location.pathname.slice(11).split('/')[0])
 
+    const updateSelect = [
+        { label: 'Kpcc President Update', value: 'kpcc-president' },
+        { label: 'Government Update', value: 'government' },
+        { label: 'Local Update', value: 'local' }
+    ]
+    const handleChange = async (value: string) => {
+        dispatch(setSelectedUpdate(value))
+    }
     const showDrawer = () => {
         setDrawerVisible(true)
     }
@@ -221,17 +235,36 @@ const DashboardLayout = () => {
                             <div className="lg:flex hidden flex-col justify-end items-start">
                                 <h3 className=" font-inter text-secondary text-sm 2xl:text-xl font-semibold"> {getHeaderText()}</h3>
                             </div>
-                            <ButtonThemeConfig buttonType={EConfigButtonType.PRIMARY}>
-                                <Button
-                                    className="flex border-primary rounded-3xl text-primary py-4 px-2 text-sm font-medium items-center font-inter"
-                                    icon={<LogoutOutlined className="text-base" />}
-                                    onClick={(e) => {
-                                        e.preventDefault()
-                                        logoutHandler()
-                                    }}>
-                                    Logout
-                                </Button>
-                            </ButtonThemeConfig>
+                            <div className="flex justify-center items-center gap-11">
+                                <Form className="lg:flex gap-4 w-full items-center">
+                                    <div className="flex items-center align-middle lg:w-[250px] w-auto">
+                                        <Form.Item
+                                            name="client"
+                                            className="w-full">
+                                            <Select
+                                                className={`h-12 text-sm font-dmSans overflow-hidden rounded-sm font-normal hover:outline-secondary`}
+                                                optionLabelProp="label"
+                                                placeholder="Select Update Type"
+                                                suffixIcon={<img src={DownArrow} />}
+                                                allowClear={false}
+                                                onChange={handleChange}
+                                                options={updateSelect}
+                                            />
+                                        </Form.Item>
+                                    </div>
+                                </Form>
+                                <ButtonThemeConfig buttonType={EConfigButtonType.PRIMARY}>
+                                    <Button
+                                        className="flex border-primary px-4 rounded-3xl text-primary py-4 px-2 text-sm font-medium items-center font-inter"
+                                        icon={<LogoutOutlined className="text-base" />}
+                                        onClick={(e) => {
+                                            e.preventDefault()
+                                            logoutHandler()
+                                        }}>
+                                        Logout
+                                    </Button>
+                                </ButtonThemeConfig>
+                            </div>
                         </Header>
                         <Content
                             style={{

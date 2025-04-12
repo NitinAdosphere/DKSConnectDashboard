@@ -79,14 +79,14 @@ export default {
             return data
         }
     },
-    Pledge: {
-        fetchPledge: async (signal: AbortSignal, entity: string, page: number, limit: number) => {
+    Update: {
+        fetchUpdate: async (signal: AbortSignal, entity: string, page: number, limit: number) => {
             const queryParams = {
                 entity,
                 page,
                 limit
             }
-            const { data } = await apiInstance.get(`/dashboard/pledge`, {
+            const { data } = await apiInstance.get(`/dashboard/update`, {
                 params: queryParams,
                 signal
             })

@@ -29,10 +29,18 @@ body {
     border-radius: 10px;
     border: 3px solid #f1f1f1;
 }
+/* antd */
+.ant-input-outlined {
+    border-color: #d9d9d9;
+}
 
 /* Hover state for the thumb */
 ::-webkit-scrollbar-thumb:hover {
     background-color: #555; /* Darken thumb color on hover */
+}
+/* antd dropdown */
+:where(.css-dev-only-do-not-override-12jgzzr).ant-form-item {
+    margin-bottom: 0;
 }
 /* menu  */
 
@@ -49,6 +57,10 @@ body {
 }
 .ant-drawer-close {
     order: 2;
+}
+/* Modals */
+.ant-modal-content {
+    border-radius: 8px !important;
 }
 /* table */
 .ant-table-thead .ant-table-cell {

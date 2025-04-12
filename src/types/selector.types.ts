@@ -1,4 +1,4 @@
-import { IUserData } from './state.types'
+import { IUpdates, IUserData } from './state.types'
 
 export interface CommonState {
     error: string | null
@@ -19,6 +19,7 @@ export interface RootState {
     Common: CommonState
     Auth: AuthState
     User: { user: IUserData }
+    Update: { update: IUpdates }
 }
 
 export interface IResponse<T = any> {

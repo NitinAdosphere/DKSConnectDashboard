@@ -1,6 +1,8 @@
 import { Drawer, Form } from 'antd'
-import { Dispatch, useState } from 'react'
-import { DropdownSelector, TextItem } from '../form.components'
+import { ChangeEvent, Dispatch, useState } from 'react'
+import { DropdownSelector, SubmitButton, TextAreaItem, TextItem, UploadFile } from '../form.components'
+import { EConfigButtonType } from '../../../types/state.types'
+import { ButtonThemeConfig } from '../configs.components'
 
 export const CreateUpdateDrawer = ({
     isCreateUpdateDrawerOpen,
@@ -13,11 +15,13 @@ export const CreateUpdateDrawer = ({
 }) => {
     const [form] = Form.useForm()
     const [title, setTitle] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [updateBrief, setUpdateBrief] = useState<string | null>('')
 
     const update = [
-        { label: 'Kpcc President Update', value: 'kpcc-president' },
-        { label: 'Government Update', value: 'government' },
-        { label: 'Local Update', value: 'local' }
+        { key: '1', label: 'Kpcc President Update', value: 'kpcc-president', desc: 'Update from KPCC President' },
+        { key: '2', label: 'Government Update', value: 'government', desc: 'Update from the Government' },
+        { key: '3', label: 'Local Update', value: 'local', desc: 'Update from Local Authorities' }
     ]
     const submitUpdates = () => {
         console.log('Form submitted:', form.getFieldsValue())
@@ -25,6 +29,16 @@ export const CreateUpdateDrawer = ({
     }
     const handleUpdatesChange = (value: string) => {
         console.log(value)
+    }
+    const inputUpdateBriefHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        setUpdateBrief(e.target.value)
+    }
+    const handleFileUpload = (file: File): boolean => {
+        setLoading(true)
+        console.log(file)
+        // Simulate file upload success
+        setLoading(false)
+        return true
     }
     return (
         <Drawer
@@ -55,7 +69,7 @@ export const CreateUpdateDrawer = ({
                         type="text"
                         placeholder="Enter Update Title"
                         required={true}
-                        // onChange={setTitle('title')}
+                        onChange={(e) => setTitle(e.target.value)}
                     />
                 </div>
                 <div className="flex flex-col gap-2">
@@ -73,6 +87,45 @@ export const CreateUpdateDrawer = ({
                         items={update}
                         handleChange={handleUpdatesChange}
                     />
+                </div>
+                <div className="flex flex-col gap-2">
+                    <label
+                        htmlFor=""
+                        className="font-inter font-semibold text-lg text-customGray">
+                        Brief <span className="text-red-500">*</span>
+                    </label>
+                    <TextAreaItem
+                        name="brief"
+                        required={true}
+                        min={20}
+                        max={200}
+                        className="resize-none w-full h-10 me-2 border border-[#D9D9D9] font-dmSans font-normal text-base text-customGray rounded"
+                        row={4}
+                        onChange={inputUpdateBriefHandler}
+                        placeholder="Enter Brief"
+                        // className="bg-[#F5F5F5]"
+                    />
+                </div>
+                <div className="flex flex-col gap-2">
+                    <label
+                        htmlFor=""
+                        className="font-inter font-semibold text-lg text-customGray">
+                        Upload Media <span className="text-red-500">*</span>
+                    </label>
+                    <UploadFile
+                        accept=".png,.jpg,.jpeg,.pdf"
+                        isUploading={loading}
+                        handleFileUpload={handleFileUpload}
+                    />
+                </div>
+                <div className="pt-4">
+                    <ButtonThemeConfig buttonType={EConfigButtonType.PRIMARY}>
+                        <SubmitButton
+                            text="Publish Update"
+                            // disabled={isDisabled}
+                            className="bg-primary rounded-md px-6 py-3 font-regular border-none hover:bg-customBlue text-white text-base font-semibold lg:h-9 2xl:h-[43px]"
+                        />
+                    </ButtonThemeConfig>
                 </div>
             </Form>
         </Drawer>

@@ -6,6 +6,7 @@ import { Table, TableProps } from 'antd'
 import ViewIcon from '../../assets/eye-view.svg'
 import DeleteIcon from '../../assets/delete-icon.svg'
 import { ViewUpdateDrawer } from './drawers/ViewUpdateDrawer'
+import { DeleteUpdate } from './modals/updatesModal'
 // import Web from '../../assets/web.svg'
 // import WhatsApp from '../../assets/whatsapp.svg'
 
@@ -24,7 +25,8 @@ const UpdateTable = ({
     page: number
     pageSize: number
 }) => {
-    const [isViewUpdateDrawerOpen, setIsViewUpdateDrawerOpen] = useState(false)
+    const [isViewUpdateDrawerOpen, setIsViewUpdateDrawerOpen] = useState<boolean>(false)
+    const [isDeleteUpdateModalOpen, setIsDeleteUpdateModalOpen] = useState<boolean>(false)
 
     const columns: TableProps<IUpdates>['columns'] = [
         {
@@ -80,7 +82,9 @@ const UpdateTable = ({
                         </span>
                         View
                     </button>
-                    <button className="font-inter font-medium text-sm px-4 py-[6px] bg-[#F90E0E] flex justify-center items-center gap-1 text-white rounded">
+                    <button
+                        className="font-inter font-medium text-sm px-4 py-[6px] bg-[#F90E0E] flex justify-center items-center gap-1 text-white rounded"
+                        onClick={() => setIsDeleteUpdateModalOpen(true)}>
                         <span>
                             <img
                                 src={DeleteIcon}
@@ -117,11 +121,20 @@ const UpdateTable = ({
                     className="text-base font-inter font-medium text-customGray rounded-[10px]"
                 />
             </TableConfig>
-            <ViewUpdateDrawer
-                content="view"
-                isViewUpdateDrawerOpen={isViewUpdateDrawerOpen}
-                setIsViewUpdateDrawerOpen={setIsViewUpdateDrawerOpen}
-            />
+            {isViewUpdateDrawerOpen && (
+                <ViewUpdateDrawer
+                    content="view"
+                    isViewUpdateDrawerOpen={isViewUpdateDrawerOpen}
+                    setIsViewUpdateDrawerOpen={setIsViewUpdateDrawerOpen}
+                />
+            )}
+            {isDeleteUpdateModalOpen && (
+                <DeleteUpdate
+                    isDeleteUpdateModalOpen={isDeleteUpdateModalOpen}
+                    setIsDeleteUpdateModalOpen={setIsDeleteUpdateModalOpen}
+                    update="update"
+                />
+            )}
         </>
     )
 }
