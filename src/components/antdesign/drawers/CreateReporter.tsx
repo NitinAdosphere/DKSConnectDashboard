@@ -77,7 +77,7 @@ export const CreateReportDrawer = ({
             open={isCreateReportDrawerOpen}
             onClose={() => setIsCreateReportDrawerOpen(false)}
             footer={null}
-            title="Create User"
+            title="Create Reporter"
             width={564}>
             <Form
                 form={form}
@@ -87,7 +87,7 @@ export const CreateReportDrawer = ({
                         <label
                             className=" font-inter font-semibold text-font16 text-[#505050]"
                             htmlFor="">
-                            First Name*
+                            First Name
                             <span className="text-red-500">*</span>
                         </label>
                         <TextItem
@@ -102,8 +102,10 @@ export const CreateReportDrawer = ({
                         <label
                             className=" font-inter font-semibold text-font16 text-[#505050]"
                             htmlFor="">
-                            Last Name*
+                            Last Name
+                            <span className="text-red-500">*</span>
                         </label>
+
                         <TextItem
                             name="lastName"
                             type="text"
@@ -116,7 +118,7 @@ export const CreateReportDrawer = ({
                         <label
                             className=" font-inter font-semibold text-font16 text-[#505050]"
                             htmlFor="">
-                            WhatsApp Number*
+                            WhatsApp Number
                         </label>
                         <PhoneNumberItem
                             name="phoneNumber"
@@ -130,6 +132,7 @@ export const CreateReportDrawer = ({
                             className=" font-inter font-semibold text-font16 text-[#505050]"
                             htmlFor="">
                             Email
+                            <span className="text-red-500">*</span>
                         </label>
                         <TextItem
                             name="email"

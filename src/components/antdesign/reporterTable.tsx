@@ -1,10 +1,11 @@
 // import moment from 'moment'
-import { IReporters } from '../../types/state.types'
+
 import { TableConfig } from './configs.components'
 import { Table, TableProps } from 'antd'
 import ViewIcon from '../../assets/eye-view.svg'
 import { useState } from 'react'
 import { ViewReporterDrawer } from './drawers/ViewReporterDrawer'
+import { IReporters } from '../../types/state.types'
 // import Web from '../../assets/web.svg'
 // import WhatsApp from '../../assets/whatsapp.svg'
 
@@ -23,6 +24,7 @@ const ReporterTable = ({
     page: number
     pageSize: number
 }) => {
+    console.log(reporters)
     const [isViewReporterDrawerOpen, setIsViewReporterDrawerOpen] = useState<boolean>(false)
     const columns: TableProps<IReporters>['columns'] = [
         {
@@ -33,32 +35,32 @@ const ReporterTable = ({
             render: (_, _record, index) => <span>{(page - 1) * pageSize + index + 1}</span>
         },
         {
-            title: 'Media Name',
-            dataIndex: 'mediaName',
-            key: 'mediaName',
+            title: 'Reporter Name',
+            dataIndex: 'reporterName',
+            key: 'reporterName',
             width: 400,
-            render: (_, record) => <span>{record.mediaName}</span>
+            render: (_, record) => <span>{record.firstName + ' ' + record.lastName}</span>
         },
         {
-            title: 'Submitted Update',
-            dataIndex: 'submittedUpdate',
-            key: 'submittedUpdate',
+            title: 'Email Address',
+            dataIndex: 'emailAddress',
+            key: 'emailAddress',
             width: 200,
-            render: (_, record) => <span>{record.submittedUpdate}</span>
+            render: (_, record) => <span>{record.emailAddress}</span>
         },
         {
             title: 'Total Views',
             dataIndex: 'views',
             key: 'views',
             width: 200,
-            render: (_, record) => <span>{record.views}</span>
+            render: (_, record) => <span>{record?.views || 'NA'}</span>
         },
         {
             title: 'Total Interactions',
             dataIndex: 'interactions',
             key: 'interactions',
             width: 200,
-            render: (_, record) => <span>{record.interactions}</span>
+            render: (_, record) => <span>{record?.interactions || 'NA'}</span>
         },
         {
             title: 'Actions',

@@ -43,12 +43,29 @@ export enum EReporterAccountType {
     INDIVIDUAL_CREATOR = 'Individual Creator',
     MEDIA_AGENCY = 'Media Agency'
 }
+export interface IReporterWhatsappInfo {
+    number: string
+    isVerified: boolean
+}
 export interface IReporters {
-    _id: string
-    mediaName: string
-    submittedUpdate: string
-    views: string
-    interactions: string
+    firstName: string
+    lastName: string
+    emailAddress: string
+    whatsappInfo: IReporterWhatsappInfo | null
+    accountType: EReporterAccountType
+}
+export interface IPagination {
+    total: number
+    page: {
+        pages: number
+        current: number
+        hasNext: boolean
+        hasPrev: boolean
+    }
+}
+export interface IGetReportersResponse {
+    reporters: IReporters[]
+    meta: IPagination
 }
 
 export interface IUpdates {

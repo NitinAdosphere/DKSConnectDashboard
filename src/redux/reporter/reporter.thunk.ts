@@ -16,3 +16,12 @@ export const createReporter = async (payload: IOnboardReporterBody) => {
         return execError(error)
     }
 }
+
+export const fetchReporterUsers = async (signal: AbortSignal, page: number, limit: number) => {
+    try {
+        const response = await Api.Reporter.fetchReporterUsers(signal, page, limit)
+        return response
+    } catch (error) {
+        return execError(error)
+    }
+}

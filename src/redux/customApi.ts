@@ -86,6 +86,17 @@ export default {
         createUser: async (payload = {}) => {
             const { data } = await apiInstance.post('/admin/reporter', payload)
             return data
+        },
+        fetchReporterUsers: async (signal: AbortSignal, page: number, limit: number) => {
+            const queryParams = {
+                page,
+                limit
+            }
+            const { data } = await apiInstance.get(`/admin/reporter`, {
+                params: queryParams,
+                signal
+            })
+            return data
         }
     },
     Home: {

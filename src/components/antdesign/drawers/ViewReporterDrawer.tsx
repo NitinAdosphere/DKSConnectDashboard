@@ -81,7 +81,7 @@ export const ViewReporterDrawer = ({
                     <h2 className="font-inter font-bold text-font32 text-secondary">120K</h2>
                 </div>
             </div>
-            <div className="py-4">
+            {/* <div className="py-4">
                 <div className="flex gap-1 pb-2">
                     <img
                         src={Calender}
@@ -99,10 +99,10 @@ export const ViewReporterDrawer = ({
                     ಅಬ್ದುಲ್ ವಾಜೀದ್, ನಗರಸಭೆ ಮಾಜಿ ಅಧ್ಯಕ್ಷ ಕೆ ಸಿ ಅಶೋಕ್, ಧನಲಕ್ಷಿ, ನಾಗಭೂಷಣ್ ಮತ್ತಿತರರು ಉಪಸ್ಥಿತರಿದ್ದರು. ಇದಕ್ಕೆ ಮೊದಲು ಕ್ಷೇತ್ರದ ಸಮಸ್ಯೆಗಳ ಬಗ್ಗೆ
                     ಸ್ಥಳೀಯ ಮುಖಂಡರ ಅಹವಾಲನ್ನು ಡಿಸಿಎಂ ಆಲಿಸಿದರು.
                 </p>
-            </div>
+            </div> */}
 
             {/* Media List */}
-            <div className="mx-auto rounded-tl-md rounded-tr-md overflow-hidden">
+            <div className="mx-auto mt-4 rounded-tl-md rounded-tr-md overflow-hidden">
                 <table className="w-full table-auto">
                     <thead>
                         <tr className="bg-primary text-white text-left font-inter font-semibold text-sm">
