@@ -6,6 +6,7 @@ import { AppCheck } from './middleware/middleware'
 import DashboardLayout from './layouts/dashboard.layout'
 import Reporters from './pages/dashboard/reporters'
 import { ERoleType } from './types/selector.types'
+import UserManagement from './pages/dashboard/userManagement'
 
 const generateRoutes = (): RouteObject[] => {
     const allowedRoles = {
@@ -42,7 +43,7 @@ const generateRoutes = (): RouteObject[] => {
                     path: 'user-management',
                     element: (
                         <ProtectedRoute allowedRoles={allowedRoles.users}>
-                            <Reporters />
+                            <UserManagement />
                         </ProtectedRoute>
                     )
                 },

@@ -242,6 +242,7 @@ export const PhoneNumberItem = ({ name = 'phone', contact, onChange }: PhoneProp
             className="w-full"
             rules={[{ required: true, message: 'Please enter your phone number' }]}>
             <PhoneInput
+                countryCodeEditable={false}
                 placeholder="Enter your number"
                 country={'in'}
                 value={contact.phone}

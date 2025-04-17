@@ -27,8 +27,8 @@ export interface IUserData {
     emailAddress: string
     firstName: string
     lastName: string
+    phoneNumber?: string | null
     role: ERoleType
-    _id: string
 }
 
 export interface IOnboardReporterBody {

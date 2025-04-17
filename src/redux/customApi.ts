@@ -65,6 +65,21 @@ export default {
         getProfile: async () => {
             const { data } = await apiInstance.get('/admin/self')
             return data
+        },
+        createAdminUser: async (payload = {}) => {
+            const { data } = await apiInstance.post(`/admin`, payload, {})
+            return data
+        },
+        fetchUsers: async (signal: AbortSignal, page: number, limit: number) => {
+            const queryParams = {
+                page,
+                limit
+            }
+            const { data } = await apiInstance.get(`/admin`, {
+                params: queryParams,
+                signal
+            })
+            return data
         }
     },
     Reporter: {

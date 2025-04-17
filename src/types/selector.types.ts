@@ -12,7 +12,7 @@ export interface AuthState {
 }
 export enum ERoleType {
     ADMIN = 'Admin',
-    MANAGER = 'Manager'
+    EDITOR = 'Editor'
 }
 export enum EAccountType {
     INDIVIDUAL_CREATOR = 'Individual Creator',
