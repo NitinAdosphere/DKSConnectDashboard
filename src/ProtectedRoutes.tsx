@@ -20,7 +20,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, allowedRoles 
             />
         )
     }
-    if (!allowedRoles.includes(user.department)) {
+    if (!allowedRoles.includes(user.role)) {
         return <ErrorPage /> // Redirect to a default page if not authorized
     }
 

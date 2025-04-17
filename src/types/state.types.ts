@@ -1,7 +1,7 @@
 import { ERoleType } from './selector.types'
 
 export interface LoginPayload {
-    username: string
+    emailAddress: string
     password: string
 }
 
@@ -24,11 +24,11 @@ export enum ESourceType {
 }
 
 export interface IUserData {
+    emailAddress: string
+    firstName: string
+    lastName: string
+    role: ERoleType
     _id: string
-    username: string
-    department: ERoleType
-    createdAt: string
-    updatedAt: string
 }
 
 export interface IReporters {

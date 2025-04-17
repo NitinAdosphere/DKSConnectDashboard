@@ -6,7 +6,7 @@ import { EConfigButtonType } from '../../types/state.types'
 import { ButtonThemeConfig } from '../../components/antdesign/configs.components'
 import { TextItem, SubmitButton, PasswordInput } from '../../components/antdesign/form.components'
 
-import Logo from '../../assets/congress-logo.svg'
+import Logo from '../../assets/reporter-logo.png'
 
 const Login = () => {
     const [form] = Form.useForm()
@@ -15,11 +15,11 @@ const Login = () => {
 
     // states
     const [dataValues, setDataValues] = useState({
-        username: '',
+        emailAddress: '',
         password: ''
     })
 
-    const { username, password } = dataValues
+    const { emailAddress, password } = dataValues
 
     const inputChangeHandler = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value
@@ -27,22 +27,22 @@ const Login = () => {
     }
 
     const submitBtnHandler = () => {
-        // setIsDisabled(true)
+        setIsDisabled(true)
 
-        // form.validateFields() // Validate the form fields
-        // .then(() => {
-        //     return login(dataValues)
-        // })
-        // .then((response) => {
-        //     if (response.success) {
-        navigate('/app/home')
-        //     }
-        //     setIsDisabled(false)
-        // })
-        // .catch(() => {
-        //     setDataValues({ ...dataValues, password: '' })
-        //     setIsDisabled(false)
-        // })
+        form.validateFields() // Validate the form fields
+            .then(() => {
+                return login(dataValues)
+            })
+            .then((response) => {
+                if (response.success) {
+                    navigate('/app/home')
+                }
+                setIsDisabled(false)
+            })
+            .catch(() => {
+                setDataValues({ ...dataValues, password: '' })
+                setIsDisabled(false)
+            })
     }
 
     return (
@@ -52,7 +52,7 @@ const Login = () => {
                     <img
                         src={Logo}
                         alt="logo"
-                        height={36}
+                        className="w-[120px]"
                     />
                 </div>
 
@@ -62,8 +62,8 @@ const Login = () => {
                     onFinish={submitBtnHandler}
                     fields={[
                         {
-                            name: 'username',
-                            value: username
+                            name: 'emailAddress',
+                            value: emailAddress
                         },
                         {
                             name: 'password',
@@ -72,16 +72,16 @@ const Login = () => {
                     ]}>
                     <div className="flex flex-col gap-2">
                         <label
-                            htmlFor="username"
+                            htmlFor="emailAddress"
                             className="text-xl font-semibold text-secondary">
                             User ID
                         </label>
                         <TextItem
-                            name="username"
+                            name="emailAddress"
                             type="text"
                             placeholder="Enter user ID"
                             required={true}
-                            onChange={inputChangeHandler('username')}
+                            onChange={inputChangeHandler('emailAddress')}
                         />
                     </div>
 

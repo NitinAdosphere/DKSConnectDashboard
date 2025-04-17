@@ -4,17 +4,18 @@ import { useEffect, useState } from 'react'
 import { logout } from '../redux/auth/auth.thunk'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { Outlet, useLocation } from 'react-router-dom'
-import { ERoleType, RootState } from '../types/selector.types'
+import { RootState } from '../types/selector.types'
 import { LogoutOutlined, MenuOutlined } from '@ant-design/icons'
 import { Layout, Menu, Button, ConfigProvider, Drawer, Form, Select } from 'antd'
 
 //images
-import Logo from '../assets/congress-logo.svg'
+import Logo from '../assets/reporter-logo.png'
 import Doc from '../assets/document-text.svg'
 import DocActive from '../assets/active-document-text.svg'
 import Reporter from '../assets/reporter-icon.svg'
 import DownArrow from '../assets/keyboard_arrow_down.svg'
 import ReportersActive from '../assets/active-reporter-icon.svg'
+import UsersActive from '../assets/active-users.svg'
 import { ButtonThemeConfig } from '../components/antdesign/configs.components'
 import { EConfigButtonType } from '../types/state.types'
 import { useDispatch } from 'react-redux'
@@ -74,8 +75,7 @@ const DashboardLayout = () => {
     }
 
     const getHeaderText = () => {
-        // return `Welcome, ${user.username}`
-        return `Welcome, Admin`
+        return `Welcome, ${user.firstName}`
     }
 
     const dksItems: MenuItem[] = [
@@ -100,6 +100,12 @@ const DashboardLayout = () => {
             label: 'Reporters',
             key: 'reporters',
             icon: current === 'reporters' ? <img src={ReportersActive} /> : <img src={Reporter} />,
+            disabled: false
+        },
+        {
+            label: 'User Management',
+            key: 'user',
+            icon: current === 'user' ? <img src={UsersActive} /> : <img src={Reporter} />,
             disabled: false
         }
     ]
@@ -169,7 +175,7 @@ const DashboardLayout = () => {
                                         <img
                                             src={Logo}
                                             alt="logo"
-                                            className="2xl:w-[120px] 2xl:h-[48px]"
+                                            className="w-[120px]"
                                         />
                                     </div>
                                 </>
@@ -209,7 +215,7 @@ const DashboardLayout = () => {
                                 <img
                                     src={Logo}
                                     alt="logo"
-                                    className="2xl:w-[130px] 2xl:h-[100px]"
+                                    className="w-[120px]"
                                 />
                             </div>
                             <Menu

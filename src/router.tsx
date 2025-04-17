@@ -17,9 +17,9 @@ export default createBrowserRouter([
             {
                 path: '',
                 element: (
-                    // <AuthCheck>
-                    <AuthLayout />
-                    // </AuthCheck>
+                    <AuthCheck>
+                        <AuthLayout />
+                    </AuthCheck>
                 ),
                 children: [
                     {

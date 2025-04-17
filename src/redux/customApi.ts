@@ -2,7 +2,7 @@ import axios from 'axios'
 
 // Create an instance of Axios
 const apiInstance = axios.create({
-    baseURL: `${window.location.origin}/v1`,
+    baseURL: `${import.meta.env.VITE_SERVER_URL}/v1`,
     withCredentials: true,
 
     headers: {
@@ -52,18 +52,18 @@ apiInstance.interceptors.response.use(
 export default {
     Auth: {
         login: async (payload = {}) => {
-            const { data } = await apiInstance.post('/dashboard/login', payload)
+            const { data } = await apiInstance.post('/admin/login', payload)
             return data
         },
         logout: async () => {
-            const { data } = await apiInstance.put('/dashboard/logout')
+            const { data } = await apiInstance.put('/admin/logout')
             return data
         }
     },
 
     User: {
         getProfile: async () => {
-            const { data } = await apiInstance.get('/dashboard/self')
+            const { data } = await apiInstance.get('/admin/self')
             return data
         }
     },

@@ -3,6 +3,8 @@ import { IReporters } from '../../types/state.types'
 import { TableConfig } from './configs.components'
 import { Table, TableProps } from 'antd'
 import ViewIcon from '../../assets/eye-view.svg'
+import { useState } from 'react'
+import { ViewReporterDrawer } from './drawers/ViewReporterDrawer'
 // import Web from '../../assets/web.svg'
 // import WhatsApp from '../../assets/whatsapp.svg'
 
@@ -21,6 +23,7 @@ const ReporterTable = ({
     page: number
     pageSize: number
 }) => {
+    const [isViewReporterDrawerOpen, setIsViewReporterDrawerOpen] = useState<boolean>(false)
     const columns: TableProps<IReporters>['columns'] = [
         {
             title: 'Sr No.',
@@ -63,7 +66,11 @@ const ReporterTable = ({
             key: 'actions',
             width: 300,
             render: (_, record) => (
-                <button className="font-inter font-medium text-sm px-4 py-[6px] bg-primary flex justify-center items-center gap-1 text-white rounded">
+                <button
+                    className="font-inter font-medium text-sm px-4 py-[6px] bg-primary flex justify-center items-center gap-1 text-white rounded"
+                    onClick={() => {
+                        setIsViewReporterDrawerOpen(true)
+                    }}>
                     <span>
                         <img
                             src={ViewIcon}
@@ -77,27 +84,35 @@ const ReporterTable = ({
     ]
 
     return (
-        <TableConfig
-            paddingBlock={16}
-            borderColor="#EFF6FA">
-            <Table
-                scroll={{ x: '1248px' }}
-                columns={columns}
-                loading={loading}
-                rowKey={(record) => record._id as string}
-                dataSource={reporters}
-                pagination={{
-                    current: page,
-                    pageSize: pageSize,
-                    showSizeChanger: false,
-                    total: totalPages * pageSize,
-                    onChange: (page: number) => {
-                        setPage(page)
-                    }
-                }}
-                className="text-base font-inter font-medium text-customGray rounded-[10px]"
+        <>
+            <TableConfig
+                paddingBlock={16}
+                borderColor="#EFF6FA">
+                <Table
+                    scroll={{ x: '1248px' }}
+                    columns={columns}
+                    loading={loading}
+                    rowKey={(record) => record._id as string}
+                    dataSource={reporters}
+                    pagination={{
+                        current: page,
+                        pageSize: pageSize,
+                        showSizeChanger: false,
+                        total: totalPages * pageSize,
+                        onChange: (page: number) => {
+                            setPage(page)
+                        }
+                    }}
+                    className="text-base font-inter font-medium text-customGray rounded-[10px]"
+                />
+            </TableConfig>
+
+            <ViewReporterDrawer
+                content="tets"
+                isViewUpdateDrawerOpen={isViewReporterDrawerOpen}
+                setIsViewReporterDrawerOpen={setIsViewReporterDrawerOpen}
             />
-        </TableConfig>
+        </>
     )
 }
 

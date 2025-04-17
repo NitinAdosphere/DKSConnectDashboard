@@ -1,4 +1,4 @@
-import { Drawer, Form } from 'antd'
+import { Drawer, Form, message } from 'antd'
 import { ChangeEvent, Dispatch, useState } from 'react'
 import { DropdownSelector, SubmitButton, TextAreaItem, TextItem, UploadFile } from '../form.components'
 import { EConfigButtonType } from '../../../types/state.types'
@@ -34,8 +34,15 @@ export const CreateUpdateDrawer = ({
         setUpdateBrief(e.target.value)
     }
     const handleFileUpload = (file: File): boolean => {
+        const maxSizeInMB = 10
+        const isTooLarge = file.size / (1024 * 1024) > maxSizeInMB
+
+        if (isTooLarge) {
+            message.error('File size exceeds 10MB limit.')
+            return false // Reject the file
+        }
         setLoading(true)
-        console.log(file)
+        console.log('file', file)
         // Simulate file upload success
         setLoading(false)
         return true
@@ -113,7 +120,7 @@ export const CreateUpdateDrawer = ({
                         Upload Media <span className="text-red-500">*</span>
                     </label>
                     <UploadFile
-                        accept=".png,.jpg,.jpeg,.pdf"
+                        accept=".jpg,.jpeg,.png,.mp4"
                         isUploading={loading}
                         handleFileUpload={handleFileUpload}
                     />

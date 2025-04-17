@@ -10,11 +10,10 @@ export interface AuthState {
     isDefaultPasswordChanged: boolean
     isLoggedIn: boolean
 }
-
 export enum ERoleType {
-    GUINNESS = 'GUINNESS'
+    ADMIN = 'Admin',
+    MANAGER = 'Manager'
 }
-
 export interface RootState {
     Common: CommonState
     Auth: AuthState
