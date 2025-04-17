@@ -29,8 +29,6 @@ const UserManagerTable = ({
     page: number
     pageSize: number
 }) => {
-    console.log('DFDF', userData)
-
     const columns: TableProps<IUser>['columns'] = [
         {
             title: <span className="font-medium 2xl:text-base md:text-sm">Sr. No.</span>,

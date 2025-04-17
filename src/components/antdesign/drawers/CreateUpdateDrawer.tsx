@@ -24,12 +24,9 @@ export const CreateUpdateDrawer = ({
         { key: '3', label: 'Local Update', value: 'local', desc: 'Update from Local Authorities' }
     ]
     const submitUpdates = () => {
-        console.log('Form submitted:', form.getFieldsValue())
         setIsCreateUpdateDrawerOpen(false)
     }
-    const handleUpdatesChange = (value: string) => {
-        console.log(value)
-    }
+    const handleUpdatesChange = (value: string) => {}
     const inputUpdateBriefHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setUpdateBrief(e.target.value)
     }
@@ -42,7 +39,7 @@ export const CreateUpdateDrawer = ({
             return false // Reject the file
         }
         setLoading(true)
-        console.log('file', file)
+
         // Simulate file upload success
         setLoading(false)
         return true

@@ -7,7 +7,7 @@ export default defineConfig({
     server: {
         port: 3000,
         open: true,
-        allowedHosts: ['masumb.botsetgo.com'],
+        allowedHosts: ['nitin.botsetgo.com'],
         proxy: {
             '/v1': {
                 target: 'https://jenil.botsetgo.com',

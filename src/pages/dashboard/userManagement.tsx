@@ -14,15 +14,15 @@ const UserManagement = () => {
     const [loading, setLoading] = useState<boolean>(false)
     const [userData, setUserData] = useState([])
 
-    console.log('userData', userData)
     const getUsers = async (signal: AbortSignal) => {
         try {
             setLoading(true)
 
-            const data = await fetchUsers(signal, page, 10)
+            const data = await fetchUsers(signal, page, pageSize)
             if (data) {
                 setUserData(data.data.adminUsers)
-                setTotalPages(data.meta.page.pages)
+
+                setTotalPages(data.data.meta.page.pages)
             }
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } finally {

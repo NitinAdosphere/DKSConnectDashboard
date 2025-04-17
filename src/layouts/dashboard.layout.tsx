@@ -30,7 +30,7 @@ const DashboardLayout = () => {
     const dispatch = useDispatch()
     const { user } = useSelector((state: RootState) => state.User)
     const selectedUpdate = useSelector((state: any) => state.Updates)
-    // console.log('selectedUpdate', selectedUpdate)
+
     const [collapsed, setCollapsed] = useState(false)
     const [drawerVisible, setDrawerVisible] = useState<boolean>(false)
     const [isMobileScreen, setIsMobileScreen] = useState<boolean>(window.innerWidth < 1024)

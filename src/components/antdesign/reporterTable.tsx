@@ -24,7 +24,6 @@ const ReporterTable = ({
     page: number
     pageSize: number
 }) => {
-    console.log(reporters)
     const [isViewReporterDrawerOpen, setIsViewReporterDrawerOpen] = useState<boolean>(false)
     const columns: TableProps<IReporters>['columns'] = [
         {

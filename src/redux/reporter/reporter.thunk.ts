@@ -9,7 +9,7 @@ export const createReporter = async (payload: IOnboardReporterBody) => {
         store.dispatch(responseRequest())
         const res = await Api.Reporter.createUser(payload)
         const { message } = res
-        console.log('masum', res)
+
         store.dispatch(responseSuccess({ message }))
         return res
     } catch (error) {

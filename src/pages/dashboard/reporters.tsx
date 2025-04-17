@@ -8,9 +8,9 @@ import { CreateReportDrawer } from '../../components/antdesign/drawers/CreateRep
 import { fetchReporterUsers } from '../../redux/reporter/reporter.thunk'
 
 const Reporters = () => {
-    const { user } = useSelector((state: RootState) => state.User) // Assuming user data is stored in Redux
+    const { user } = useSelector((state: RootState) => state.User)
 
-    const pageSize = 25
+    const pageSize = 10
     const [page, setPage] = useState(1)
     const [reporters, setReporters] = useState<IReporters[]>([])
     const [totalPages, setTotalPages] = useState(0)

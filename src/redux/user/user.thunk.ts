@@ -10,7 +10,6 @@ export const getProfile = async () => {
         store.dispatch(responseRequest())
         const res = await Api.User.getProfile()
         const { message, data } = res
-        console.log('self_data:', data)
         store.dispatch(responseSuccess(message))
         store.dispatch(userSuccess(data))
         return data

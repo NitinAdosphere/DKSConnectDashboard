@@ -52,7 +52,6 @@ export const CreateReportDrawer = ({
                 return createReporter(finalPayload)
             })
             .then((res) => {
-                console.log('bhae', res)
                 if (res?.success) {
                     form.resetFields()
                     setDataValues({
