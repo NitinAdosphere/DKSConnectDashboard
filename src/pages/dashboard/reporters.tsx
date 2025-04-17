@@ -4,6 +4,7 @@ import { IReporters } from '../../types/state.types'
 
 import { useSelector } from 'react-redux'
 import { ERoleType, RootState } from '../../types/selector.types'
+import { CreateReportDrawer } from '../../components/antdesign/drawers/CreateReporter'
 
 const Reporters = () => {
     const { user } = useSelector((state: RootState) => state.User) // Assuming user data is stored in Redux
@@ -13,6 +14,8 @@ const Reporters = () => {
     // const [reporters, setReporters] = useState<IReporters[]>([])
     const [totalPages, setTotalPages] = useState(0)
     const [loading, setLoading] = useState(false)
+
+    const [isCreateReportDrawerOpen, setIsCreateReportDrawerOpen] = useState(false)
 
     const reporters = [
         {
@@ -66,9 +69,16 @@ const Reporters = () => {
             controller.abort()
         }
     }, [page])
+    const [isDisabled, setIsDisabled] = useState(false)
 
     return (
         <div className="py-4 px-8">
+            <button
+                onClick={() => setIsCreateReportDrawerOpen(true)}
+                disabled={isDisabled}
+                className="bg-primary rounded-[36px] font-inter border-none hover:bg-customBlue text-white text-base 2xl:text-base font-semibold lg:h-9 2xl:h-12 px-5">
+                Create Reporter
+            </button>
             <ReporterTable
                 loading={loading}
                 page={page}
@@ -77,6 +87,10 @@ const Reporters = () => {
                 setPage={setPage}
                 totalPages={totalPages}
                 key={'reporter-table'}
+            />
+            <CreateReportDrawer
+                isCreateReportDrawerOpen={isCreateReportDrawerOpen}
+                setIsCreateReportDrawerOpen={setIsCreateReportDrawerOpen}
             />
         </div>
     )

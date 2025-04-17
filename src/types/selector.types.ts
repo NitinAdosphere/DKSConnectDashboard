@@ -14,6 +14,10 @@ export enum ERoleType {
     ADMIN = 'Admin',
     MANAGER = 'Manager'
 }
+export enum EAccountType {
+    INDIVIDUAL_CREATOR = 'Individual Creator',
+    MEDIA_AGENCY = 'Media Agency'
+}
 export interface RootState {
     Common: CommonState
     Auth: AuthState

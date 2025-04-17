@@ -31,6 +31,18 @@ export interface IUserData {
     _id: string
 }
 
+export interface IOnboardReporterBody {
+    firstName: string
+    lastName: string
+    emailAddress: string
+    phoneNumber: string | null
+    accountType: EReporterAccountType
+}
+
+export enum EReporterAccountType {
+    INDIVIDUAL_CREATOR = 'Individual Creator',
+    MEDIA_AGENCY = 'Media Agency'
+}
 export interface IReporters {
     _id: string
     mediaName: string

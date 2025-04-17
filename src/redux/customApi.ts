@@ -67,6 +67,12 @@ export default {
             return data
         }
     },
+    Reporter: {
+        createUser: async (payload = {}) => {
+            const { data } = await apiInstance.post('/admin/reporter', payload)
+            return data
+        }
+    },
     Home: {
         getHighLevelInsights: async (signal: AbortSignal, clientId: string) => {
             const queryParams = {

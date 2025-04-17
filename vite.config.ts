@@ -7,10 +7,10 @@ export default defineConfig({
     server: {
         port: 3000,
         open: true,
-        allowedHosts: ['nitin.botsetgo.com'],
+        allowedHosts: ['masumb.botsetgo.com'],
         proxy: {
             '/v1': {
-                target: 'https://jenil.botsetgo.com',
+                target: 'https://vicky.botsetgo.com',
                 changeOrigin: true, // Ensures the origin is updated to the target's domain
                 configure: (proxy, options) => {
                     // Customize the proxy configuration to add the original host
@@ -20,7 +20,7 @@ export default defineConfig({
                 }
             },
             '/asset': {
-                target: 'https://jenil.botsetgo.com',
+                target: 'https://vicky.botsetgo.com',
                 changeOrigin: true, // Ensures the origin is updated to the target's domain
                 configure: (proxy, options) => {
                     // Customize the proxy configuration to add the original host
