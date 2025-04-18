@@ -57,7 +57,8 @@ export const CreateUserDrawer = ({
                     phoneNumber,
                     role: selectedRole as ERoleType,
                     emailAddress
-         
+                }
+
                 return createUser(finalPayload)
             })
             .then((res) => {
