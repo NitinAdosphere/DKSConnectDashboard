@@ -121,7 +121,7 @@ export const CreateReportDrawer = ({
                         </label>
                         <PhoneNumberItem
                             name="phoneNumber"
-                            required={true}
+                            required={false}
                             contact={{ phone: dataValues.phoneNumber }}
                             onChange={phoneInputChangeHandler}
                         />

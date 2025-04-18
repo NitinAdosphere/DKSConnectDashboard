@@ -235,12 +235,12 @@ export const SubmitButton = ({ text, className, disabled = false }: { text: stri
     )
 }
 
-export const PhoneNumberItem = ({ name = 'phone', contact, onChange }: PhoneProps) => {
+export const PhoneNumberItem = ({ name = 'phone', contact, onChange, required = false }: PhoneProps & { required?: boolean }) => {
     return (
         <Form.Item
             name={name}
             className="w-full"
-            rules={[{ required: true, message: 'Please enter your phone number' }]}>
+            rules={required ? [{ required: true, message: 'Please enter your phone number' }] : []}>
             <PhoneInput
                 countryCodeEditable={false}
                 placeholder="Enter your number"

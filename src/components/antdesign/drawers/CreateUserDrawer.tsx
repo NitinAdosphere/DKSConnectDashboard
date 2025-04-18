@@ -147,7 +147,7 @@ export const CreateUserDrawer = ({
                     <h6 className="font-inter text-base text-customGray text-font16 font-semibold">WhatsApp Number</h6>
                     <PhoneNumberItem
                         name="phoneNumber"
-                        required={true}
+                        required={false}
                         contact={{ phone: phoneNumber }}
                         onChange={phoneInputChangeHandler}
                     />

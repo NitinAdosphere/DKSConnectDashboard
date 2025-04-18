@@ -252,7 +252,7 @@ const DashboardLayout = () => {
                                                 optionLabelProp="label"
                                                 placeholder="Select Update Type"
                                                 suffixIcon={<img src={DownArrow} />}
-                                                allowClear={false}
+                                                allowClear={true}
                                                 onChange={handleChange}
                                                 options={updateSelect}
                                             />
