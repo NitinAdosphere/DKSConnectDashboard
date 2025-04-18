@@ -99,26 +99,20 @@ export default {
             return data
         }
     },
-    Home: {
-        getHighLevelInsights: async (signal: AbortSignal, clientId: string) => {
-            const queryParams = {
-                clientId
-            }
-            const { data } = await apiInstance.get(`/agency/high-level-insights`, {
-                params: queryParams,
-                signal
-            })
-            return data
-        }
-    },
+
     Update: {
-        fetchUpdate: async (signal: AbortSignal, entity: string, page: number, limit: number) => {
+        //  Create News
+        createUpdates: async (payload: FormData) => {
+            const { data } = await apiInstance.post(`/admin/news`, payload, { headers: { 'Content-Type': 'multipart/form-data' } })
+            return data
+        },
+        // For All get News
+        fetchAllUpdates: async (signal: AbortSignal, page: number, limit: number) => {
             const queryParams = {
-                entity,
                 page,
                 limit
             }
-            const { data } = await apiInstance.get(`/dashboard/update`, {
+            const { data } = await apiInstance.get(`/admin/news`, {
                 params: queryParams,
                 signal
             })

@@ -75,3 +75,47 @@ export interface IUpdates {
     views: string
     interactions: string
 }
+//
+export enum ENewsUpdateTypes {
+    KPCC_PRESIDENT = 'KPCC President',
+    GOVERNMENT = 'Government',
+    LOCAL = 'Local'
+}
+export enum EMediaTypes {
+    JPG = 'jpg',
+    PNG = 'png',
+    JPEG = 'jpeg',
+    MP4 = 'mp4'
+}
+export interface IMedia {
+    type: EMediaTypes
+    filePath: string
+    extension: EMediaExtentionTypes
+    publicUrl: string
+}
+export enum EMediaExtentionTypes {
+    JPG = 'jpg',
+    PNG = 'png',
+    JPEG = 'jpeg',
+    MP4 = 'mp4'
+}
+export interface INews {
+    newsTitle: string
+    brief: string
+    newsType: ENewsUpdateTypes
+    mediaFiles: IMedia[] | []
+    isRemoved: boolean
+    removedBy: string | null
+}
+export interface ICreateNewsBody {
+    newsTitle: string
+    brief: string
+    newsType: ENewsUpdateTypes
+}
+
+export type TCreateNewsResponse = INews
+
+export interface IGetNewsResponse {
+    news: INews[]
+    meta: IPagination
+}

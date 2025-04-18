@@ -1,6 +1,6 @@
 // import moment from 'moment'
 import { useState } from 'react'
-import { IUpdates } from '../../types/state.types'
+import { INews, IUpdates } from '../../types/state.types'
 import { TableConfig } from './configs.components'
 import { Table, TableProps } from 'antd'
 import ViewIcon from '../../assets/eye-view.svg'
@@ -18,7 +18,7 @@ const UpdateTable = ({
     page,
     pageSize
 }: {
-    updates: IUpdates[]
+    updates: INews[]
     totalPages: number
     loading: boolean
     setPage: React.Dispatch<React.SetStateAction<number>>
@@ -28,7 +28,7 @@ const UpdateTable = ({
     const [isViewUpdateDrawerOpen, setIsViewUpdateDrawerOpen] = useState<boolean>(false)
     const [isDeleteUpdateModalOpen, setIsDeleteUpdateModalOpen] = useState<boolean>(false)
 
-    const columns: TableProps<IUpdates>['columns'] = [
+    const columns: TableProps<INews>['columns'] = [
         {
             title: 'Sr No.',
             dataIndex: 'srNo',
@@ -38,10 +38,10 @@ const UpdateTable = ({
         },
         {
             title: 'Update Title',
-            dataIndex: 'mediaName',
-            key: 'mediaName',
+            dataIndex: 'newsTitle',
+            key: 'newsTitle',
             width: 400,
-            render: (_, record) => <span>{record.mediaName}</span>
+            render: (_, record) => <span>{record.newsTitle}</span>
         },
         {
             title: 'Total Participations',

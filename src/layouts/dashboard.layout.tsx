@@ -2,20 +2,20 @@ import type { MenuProps } from 'antd'
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { logout } from '../redux/auth/auth.thunk'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Outlet, useLocation } from 'react-router-dom'
 import { RootState } from '../types/selector.types'
 import { LogoutOutlined, MenuOutlined } from '@ant-design/icons'
-import { Layout, Menu, Button, ConfigProvider, Drawer, Form, Select } from 'antd'
+import { Layout, Menu, Button, ConfigProvider, Drawer } from 'antd'
 
 //images
 import Logo from '../assets/reporter-logo.png'
 import Doc from '../assets/document-text.svg'
 import DocActive from '../assets/active-document-text.svg'
 import Reporter from '../assets/reporter-icon.svg'
-import DownArrow from '../assets/keyboard_arrow_down.svg'
 import ReportersActive from '../assets/active-reporter-icon.svg'
 import UsersActive from '../assets/active-users.svg'
+import UserIcon from '../assets/user-icon.svg'
 import { ButtonThemeConfig } from '../components/antdesign/configs.components'
 import { EConfigButtonType } from '../types/state.types'
 import { useDispatch } from 'react-redux'
@@ -27,7 +27,7 @@ const { Header, Sider, Content } = Layout
 const DashboardLayout = () => {
     const location = useLocation()
     const navigate = useNavigate()
-    const dispatch = useDispatch()
+
     const { user } = useSelector((state: RootState) => state.User)
     const selectedUpdate = useSelector((state: any) => state.Updates)
 
@@ -36,14 +36,6 @@ const DashboardLayout = () => {
     const [isMobileScreen, setIsMobileScreen] = useState<boolean>(window.innerWidth < 1024)
     const [current, setCurrent] = useState<string>(location.pathname.slice(11).split('/')[0])
 
-    const updateSelect = [
-        { label: 'Kpcc President Update', value: 'kpcc-president' },
-        { label: 'Government Update', value: 'government' },
-        { label: 'Local Update', value: 'local' }
-    ]
-    const handleChange = async (value: string) => {
-        dispatch(setSelectedUpdate(value))
-    }
     const showDrawer = () => {
         setDrawerVisible(true)
     }
@@ -105,7 +97,7 @@ const DashboardLayout = () => {
         {
             label: 'User Management',
             key: 'user-management',
-            icon: current === 'user-management' ? <img src={UsersActive} /> : <img src={Reporter} />,
+            icon: current === 'user-management' ? <img src={UsersActive} /> : <img src={UserIcon} />,
             disabled: false
         }
     ]
@@ -242,23 +234,6 @@ const DashboardLayout = () => {
                                 <h3 className=" font-inter text-secondary text-sm 2xl:text-xl font-semibold"> {getHeaderText()}</h3>
                             </div>
                             <div className="flex justify-center items-center gap-11">
-                                <Form className="lg:flex gap-4 w-full items-center">
-                                    <div className="flex items-center align-middle lg:w-[250px] w-auto">
-                                        <Form.Item
-                                            name="client"
-                                            className="w-full">
-                                            <Select
-                                                className={`h-12 text-sm font-dmSans overflow-hidden rounded-sm font-normal hover:outline-secondary`}
-                                                optionLabelProp="label"
-                                                placeholder="Select Update Type"
-                                                suffixIcon={<img src={DownArrow} />}
-                                                allowClear={true}
-                                                onChange={handleChange}
-                                                options={updateSelect}
-                                            />
-                                        </Form.Item>
-                                    </div>
-                                </Form>
                                 <ButtonThemeConfig buttonType={EConfigButtonType.PRIMARY}>
                                     <Button
                                         className="flex border-primary px-4 rounded-3xl text-primary py-4 px-2 text-sm font-medium items-center font-inter"

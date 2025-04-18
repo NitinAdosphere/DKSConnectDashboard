@@ -362,7 +362,7 @@ export const UploadFile = ({
                 height={180}
                 accept={accept}
                 beforeUpload={handleFileUpload}
-                multiple={false}
+                multiple={true}
                 onDrop={(e) => message.info(`Dropped ${e.dataTransfer.files.length} files`)}
                 className={isUploading ? 'dragger-animation' : ''}>
                 <p className="ant-upload-drag-icon">

@@ -3,52 +3,77 @@ import InstaIcon from '../../assets/instagram-icon.svg'
 import UpdateIcon from '../../assets/total-update-icon.svg'
 import ReporterIcon from '../../assets/total-reporter-icon.svg'
 import UpdateTable from '../../components/antdesign/updateTable'
-import { useState } from 'react'
-import { ButtonThemeConfig } from '../../components/antdesign/configs.components'
-import { SubmitButton } from '../../components/antdesign/form.components'
-import { EConfigButtonType } from '../../types/state.types'
+import DownArrow from '../../assets/keyboard_arrow_down.svg'
+
+import { useEffect, useState } from 'react'
+// import { ButtonThemeConfig } from '../../components/antdesign/configs.components'
+// import { SubmitButton } from '../../components/antdesign/form.components'
+import { EConfigButtonType, INews } from '../../types/state.types'
 import { CreateUpdateDrawer } from '../../components/antdesign/drawers/CreateUpdateDrawer'
-import { ViewUpdateDrawer } from '../../components/antdesign/drawers/ViewUpdateDrawer'
+// import { ViewUpdateDrawer } from '../../components/antdesign/drawers/ViewUpdateDrawer'
+import { getAllUpdates } from '../../redux/allUpdate/update.thunk'
+import { Form, Select } from 'antd'
+import { useDispatch } from 'react-redux'
 const Home = () => {
-    const pageSize = 25
+    const pageSize = 10
     const [page, setPage] = useState(1)
+    const dispatch = useDispatch()
     const [isDisabled, setIsDisabled] = useState(false)
-    // const [updates, setUpdates] = useState<IUpdates[]>([])
+    const [updates, setUpdates] = useState<INews[]>([])
     const [totalPages, setTotalPages] = useState(0)
     const [loading, setLoading] = useState(false)
     const [isCreateUpdateDrawerOpen, setIsCreateUpdateDrawerOpen] = useState(false)
-    const updates = [
-        {
-            _id: '01',
-            mediaName: 'ದಾಸದರಹಳ್ಳಿ ವಿಧಾನಸಭಾ ಕ್ಷೇತ್ರದ ಮಾಜಿ ಶಾಸಕ ಆರ್.ಮಂಜುನಾಥ್ ಇಂದು ಉಪಮುಖ್ಯಮಂತ್ರಿ ಡಿಕೆ ಶಿವಕುಮಾರ್ ಅವರನ್ನು ಭೇಟಿಯಾದರು ',
-            submittedUpdate: '10',
-            views: '25K',
-            interactions: '125K'
-        },
-        {
-            _id: '01',
-            mediaName: 'ವಿಟಿಯು ಯುವಜನೋತ್ಸವ ಉದ್ಘಾಟಿಸಿದ ಉಪ ಮುಖ್ಯಮಂತ್ರಿಗಳು ',
-            submittedUpdate: '10',
-            views: '25K',
-            interactions: '125K'
-        },
-        {
-            _id: '01',
-            mediaName: 'Redistribution of Lok Sabha seats; Political oppression by BJP: DCM D.K. Shivakumar',
-            submittedUpdate: '10',
-            views: '25K',
-            interactions: '125K'
-        },
-        {
-            _id: '01',
-            mediaName: ' ‘Changing Constitution’ statement lands Karnataka Deputy CM D.K. Shivakumar in the eye of a storm',
-            submittedUpdate: '10',
-            views: '25K',
-            interactions: '125K'
-        }
+    const updateSelect = [
+        { label: 'Kpcc President Update', value: 'kpcc-president' },
+        { label: 'Government Update', value: 'government' },
+        { label: 'Local Update', value: 'local' }
     ]
+    const getUpdates = async (signal: AbortSignal) => {
+        try {
+            setLoading(true)
+
+            const data = await getAllUpdates(signal, page, pageSize)
+            if (data) {
+                setUpdates(data.data)
+                setTotalPages(data.meta.page.pages)
+            }
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    useEffect(() => {
+        const controller = new AbortController()
+        const signal = controller.signal
+        getUpdates(signal)
+        return () => {
+            controller.abort()
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [page])
+    const handleChange = async (value: string) => {}
     return (
         <>
+            <div className="grid mx-8 justify-end mt-4">
+                <Form className="gap-4 w-full items-center ">
+                    <div className="flex items-center align-middle lg:w-[250px] w-auto">
+                        <Form.Item
+                            name="client"
+                            className="w-full">
+                            <Select
+                                className={`h-12 text-sm font-dmSans overflow-hidden rounded-sm font-normal hover:outline-secondary`}
+                                optionLabelProp="label"
+                                placeholder="Select Update Type"
+                                suffixIcon={<img src={DownArrow} />}
+                                allowClear={true}
+                                onChange={handleChange}
+                                options={updateSelect}
+                            />
+                        </Form.Item>
+                    </div>
+                </Form>
+            </div>
             <div className="grid grid-cols-2 gap-4 mx-8 mt-4">
                 {/* Card 1: Total Submissions */}
                 <div className="bg-white shadow-customBox rounded-xl px-6 pt-6 pb-8 font-inter">

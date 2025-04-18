@@ -45,12 +45,12 @@ export const ViewReporterDrawer = ({
         scrollRef.current.scrollLeft = scrollLeft - walk
     }
     const mediaData = [
-        { srNo: '01', name: 'Run tv', link: '#', views: '25K' },
-        { srNo: '02', name: 'Bellary Belagayithu', link: '#', views: '25K' },
-        { srNo: '03', name: 'InNews', link: '#', views: '25K' },
-        { srNo: '04', name: 'BVNEWS5', link: '#', views: '25K' },
-        { srNo: '05', name: 'Ejagatthu', link: '#', views: '25K' },
-        { srNo: '06', name: 'News81', link: '#', views: '25K' }
+        { srNo: '01', name: 'Run tv', link: '#', views: '25K', interactions: '20k' },
+        { srNo: '02', name: 'Bellary Belagayithu', link: '#', views: '25K', interactions: '20k' },
+        { srNo: '03', name: 'InNews', link: '#', views: '25K', interactions: '20k' },
+        { srNo: '04', name: 'BVNEWS5', link: '#', views: '25K', interactions: '20k' },
+        { srNo: '05', name: 'Ejagatthu', link: '#', views: '25K', interactions: '20k' },
+        { srNo: '06', name: 'News81', link: '#', views: '25K', interactions: '20k' }
     ]
 
     const mediaList: MediaItem[] = [
@@ -66,7 +66,7 @@ export const ViewReporterDrawer = ({
             onClose={() => setIsViewReporterDrawerOpen(false)}
             footer={null}
             title="View Reporter"
-            width={564}>
+            width={800}>
             <div className="font-inter bg-[#EFF6FA] py-4 px-6 rounded-lg flex justify-between items-center">
                 <div>
                     <h4 className="font-inter font-medium text-base text-customGray">Total Participations</h4>
@@ -107,9 +107,10 @@ export const ViewReporterDrawer = ({
                     <thead>
                         <tr className="bg-primary text-white text-left font-inter font-semibold text-sm">
                             <th className="py-3 px-4">Sr No.</th>
-                            <th className="py-3 px-4">Media Name</th>
+                            <th className="py-3 px-4">News Title</th>
                             <th className="py-3 px-4">Link</th>
                             <th className="py-3 px-4">Views</th>
+                            <th className="py-3 px-4">Interactions</th>
                         </tr>
                     </thead>
                     <tbody className="bg-[#EFF6FA] text-sm">
@@ -128,6 +129,7 @@ export const ViewReporterDrawer = ({
                                     </a>
                                 </td>
                                 <td className="py-3 px-4 text-[#515151] text-[15px] font-medium">{media.views}</td>
+                                <td className="py-3 px-4 text-[#515151] text-[15px] font-medium">{media.interactions}</td>
                             </tr>
                         ))}
                     </tbody>

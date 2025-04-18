@@ -1,11 +1,24 @@
 import Api from '../customApi'
 import execError from '../execError'
 import { IResponse } from '../../types/selector.types'
-import { IUpdates } from '../../types/state.types'
+import { INews } from '../../types/state.types'
+import { responseSuccess } from '../common/common.slice'
+import { store } from '../store'
 
-export const fetchUpdates = async (signal: AbortSignal, entity: string, page: number, limit: number): Promise<IResponse<Array<IUpdates>> | null> => {
+export const getAllUpdates = async (signal: AbortSignal, page: number, limit: number): Promise<IResponse<Array<INews>> | null> => {
     try {
-        const data: IResponse<Array<IUpdates>> = await Api.Update.fetchUpdate(signal, entity, page, limit)
+        const data: IResponse<Array<INews>> = await Api.Update.fetchAllUpdates(signal, page, limit)
+        return data
+    } catch (error) {
+        return execError(error)
+    }
+}
+
+export const createUpdate = async (reqBody: FormData) => {
+    try {
+        const data = await Api.Update.createUpdates(reqBody)
+        const { message } = data
+        store.dispatch(responseSuccess({ message }))
         return data
     } catch (error) {
         return execError(error)
